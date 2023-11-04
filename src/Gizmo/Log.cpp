@@ -1,20 +1,20 @@
 #include "Log.hpp"
-#include <iostream>
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace Gizmo
 {
-    const void Log::StatusPrint(std::string msg)
-    {
-        std::cout << msg << '\n';
-    }
+    std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
+    std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
 
-    const void Log::WarningPrint(std::string msg)
+    void Log::Init()
     {
-        std::cout << msg << '\n';
-    }
-    
-    const void Log::ErrorPrint(std::string msg)
-    {
-        return void();
+        spdlog::set_pattern("%^[%T] %n: %v%$");
+        
+        s_CoreLogger = spdlog::stdout_color_mt("Gizmo");
+        s_CoreLogger->set_level(spdlog::level::trace);
+
+        s_ClientLogger = spdlog::stdout_color_mt("App");
+        s_ClientLogger->set_level(spdlog::level::trace);
     }
 } // namespace Gizmo
