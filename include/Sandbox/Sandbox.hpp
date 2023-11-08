@@ -1,5 +1,5 @@
 #pragma once
-#include "../Gizmo/Application.hpp"
+#include "Gizmo/Application.hpp"
 
 class Sandbox : public Gizmo::Application
 {
